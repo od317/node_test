@@ -1,0 +1,11 @@
+<h2>search authors</h2>
+<form action="/authors" method="GET">
+ <label>Name</label>
+ <input type="text" name="name" >
+ <button type="submit">search</button>   
+</form>
+
+<% authors.forEach(a=>{%>
+    <br>
+    <div><%= a.name%></div>
+<%})  %> 
