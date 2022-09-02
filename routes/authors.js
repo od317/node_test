@@ -11,8 +11,6 @@ const con= mysql.createConnection({
 });
 
 
-
-
 //all authors route
 router.get('/',(req,res)=>{
     let a;  
