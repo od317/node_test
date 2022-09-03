@@ -9,5 +9,5 @@
 
 <% books.forEach(b=>{%>
     <div><%= b.title%></div>
-    <img src="/public/books_covers/g2.jpg" alt="" width="100" height="150">
-<%})  %> 
+    <img src="/books_covers/<%= String(b.cover_img) %> " alt="" width="100" height="150">
+    <%})  %> 

@@ -2,6 +2,7 @@ const express=require('express');
 const app=express();
 const expresslay=require('express-ejs-layouts');
 const mysql=require("mysql");
+const methodOverride=require('method-override'); 
 const indexr=require('./routes/index')
 const authrouter=require('./routes/authors')
 const booksrouter=require('./routes/books')
@@ -14,7 +15,7 @@ const con= mysql.createConnection({
     password:"HpQe9ARfGn",
     database:"sql6516510"
 });
-
+app.use(methodOverride('_method'));
 app.set(`view engine`,'ejs');
 app.set('views',__dirname+'/views');
 app.set('layout','layouts/layout');

@@ -1,17 +1,20 @@
 const express =require('express');
 const router=express.Router();
 const mysql=require('mysql');
-const path=require('path');
-const coverimagebasepath='uploads/booksCovers';
-const uploadPath=path.join('public',coverimagebasepath);
 const multer=require('multer');
-const imageMimeTypes=['images/jpeg','images/png','images/gif']
-const upload=multer({
-dest:uploadPath,
-fileFilter: (req,file,callback)=>{
-    callback(null,imageMimeTypes.includes(file.mimetype))
+const path=require('path');
+const storage=multer.diskStorage({
+destination:(req,file,cb)=>{
+  cb(null,'/public/books_covers')
+},
+filename:(req,file,cb)=>{
+  console.log("this is fiel"+file);
+  cb(null,path.extname(file.originalname))
 }
+
 });
+const upload=multer({storage:storage});
+
 
 const con= mysql.createConnection({
     host:"sql6.freesqldatabase.com",
@@ -63,13 +66,14 @@ router.get('/new',async (req,res)=>{
    })
 })
 //creater author
-router.post('/',upload.single('cover'),async (req,res)=>{
+router.post('/', upload.single('cover'),async (req,res)=>{
+  console.log("covvv "+req.body.cover);
+  upload.single('cover');
   let t=String(req.body.title );
   let a=req.body.author;
   let d=String(req.body.publishDate);
   let pc=req.body.pagec;
   let cover=req.body.cover;
-  
   let desc=String(req.body.desc);
   console.log("t :"+t+" a : "+a+" d : "+d+" pc : "+pc+" cover: "+cover+" dec: "+desc);
   if(t==''||a==null||cover==""||d==""){
