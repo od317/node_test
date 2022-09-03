@@ -8,6 +8,8 @@
 </form>
 
 <% books.forEach(b=>{%>
+    <a href="/books/<%= b.title %> ">
     <div><%= b.title%></div>
     <img src="/books_covers/<%= String(b.cover_img) %> " alt="" width="100" height="150">
+    </a>
     <%})  %> 

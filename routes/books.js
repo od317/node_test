@@ -67,7 +67,6 @@ router.get('/new',async (req,res)=>{
 })
 //creater author
 router.post('/', upload.single('cover'),async (req,res)=>{
-  console.log("covvv "+req.body.cover);
   upload.single('cover');
   let t=String(req.body.title );
   let a=req.body.author;
@@ -93,5 +92,76 @@ router.post('/', upload.single('cover'),async (req,res)=>{
   res.redirect('books');
 }
 });
+
+router.get('/:id',async (req,res)=>{
+  try{ 
+  let id= String(req.params.id);
+  console.log("wow");
+  con.query(`select * from  books where title="${id}"`,(err,ress,file)=>{
+   let a=ress;
+   if(a[0]==null)
+   res.redirect('/books');
+   else{
+   con.query(`select * from authors where id=${a[0].author_id}`,(err,ress2,file)=>{
+    res.render(`books/show`,{info:a[0],author:ress2[0]});
+   })
+  }
+  });
+  }
+  catch{
+    res.redirect('/');
+  }
+   
+})
+router.get('/:id/edit',async(req,res)=>{
+  
+  con.query(`select* from books where title="${String(req.params.id)}";`,(err,ress,file)=>{
+    con.query(`select * from authors;`,(err,ress2,file)=>{
+      res.render('books/edit',{book:ress[0],authors:ress2});
+    })
+  })
+})
+
+router.put('/:id',async(req,res)=>{
+  console.log(req.params.id);
+  let t=String(req.body.title );
+  let a=req.body.author;
+  let d=String(req.body.publishDate);
+  let pc=req.body.pagec;
+  let cover=req.body.cover;
+  let desc=String(req.body.desc);
+  console.log("t :"+t+" a : "+a+" d : "+d+" pc : "+pc+" cover: "+cover+" dec: "+desc);
+  if(t==''||a==null||cover==""||d==""){
+    await con.query("select * from authors;",(err,ress,file)=>{
+      if(err)
+        res.redirect('/books');
+      let a=ress;
+      res.render('books/new',{authors:a,errormas:"error you missed somthing"});
+     })
+  }
+  else{
+  await con.query(`update  books set
+  title="${t}",descritopn="${desc}",publishDate="${d}",page_count=${pc},cover_img="${cover}",author_id=${a} 
+  where title="${req.params.id}";`,(err,ress,file)=>{
+    console.log(err);
+    res.redirect('books');
+  })
+ 
+}
+})
+
+router.delete('/:id',async (req,res)=>{
+  let id=req.params.id;
+await con.query(`delete from books where title="${id}";`,(err,ress,file)=>{
+      if(err){
+       console.log(req.body);
+        console.log(err);
+         res.redirect('/books');
+       }
+       else{
+     res.redirect(`/books`);
+       }
+      })
+})
 
 module.exports=router;
