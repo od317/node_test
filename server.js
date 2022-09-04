@@ -22,7 +22,11 @@ app.set('layout','layouts/layout');
 app.use(expresslay)
 app.use(express.static("public"))
 app.use(bodyparser.urlencoded({limit:"10mb",extended:false}));
-app.use('/',indexr);
 app.use('/authors',authrouter);
 app.use(`/books`,booksrouter);
+app.use('/',(req,res)=>{
+    con.query("select * from books order by publishDate;",(err,ress,f)=>{
+        res.render('index',{books:ress});
+    })
+});
 app.listen(process.env.PORT||3000);

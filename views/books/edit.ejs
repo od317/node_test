@@ -1,4 +1,4 @@
-<h2>edit book : <%= book.title %> </h2>
+<h2 class="page-header">edit book : <%= book.title %> </h2>
 <form action="/books/<%= book.title %>?_method=PUT" method="POST" >
  <%- include('form_fildes') %> 
 <a href="/books">cancel</a> 
