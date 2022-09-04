@@ -10,7 +10,7 @@ html{
     color:var(--color-text-light);
 }
 :root{
-    font-size: 20px;
+    font-size: 2vw;
 }
 
 *,*::before,*::after{
@@ -40,3 +40,4 @@ body{
 .error-message{
  color: hsl(var(--color-danger-hue),100%,50%);
 }
+
