@@ -37,17 +37,21 @@ router.get('/new',(req,res)=>{
 //create author
 router.post('/',(req,res)=>{
     let s=String(req.body.name);
+    if(s==""||s==null)
+    res.render('authors/new',{
+      errormas:"you must enter a name"
+    })
+    else{
     con.query(`insert into authors(name) values("${s}");`,(err,ress,file)=>{
        if(err){
-        console.log(req.body);
           res.render('authors/new',{
-            errormas:"error you idot"
+            errormas:"error you must enter a name"
           })
        }
        else{
         res.redirect('authors');
        }
-    })
+    })}
 });
 
 router.get('/:id',(req,res)=>{

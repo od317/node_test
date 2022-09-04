@@ -3,6 +3,8 @@
 @import 'header.css';
 @import 'buttons.css';
 @import 'form.css';
+@import 'author.css';
+@import 'book.css';
 html{
     font-family:"Nunito";
     color:var(--color-text-light);
@@ -34,4 +36,7 @@ body{
 .page-header{
     font-size: 2rem;
     font-weight: 500;
+}
+.error-message{
+ color: hsl(var(--color-danger-hue),100%,50%);
 }

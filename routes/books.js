@@ -121,7 +121,7 @@ router.get('/:id/edit',async(req,res)=>{
     })
   })
 })
-
+let covs=["g1.webp","g2.jpg","g3.jpg","g4.webp","g5.webp","g6.jpg","g7.jpg","g8.jpg","g9.jpg","g10.jpg","g11.jpg","g12.jpg","g13.jpg",];
 router.put('/:id',async(req,res)=>{
   console.log(req.params.id);
   let t=String(req.body.title );
