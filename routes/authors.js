@@ -45,7 +45,7 @@ router.post('/',(req,res)=>{
     con.query(`insert into authors(name) values("${s}");`,(err,ress,file)=>{
        if(err){
           res.render('authors/new',{
-            errormas:"error you must enter a name"
+            errormas:"error you missed somthing"
           })
        }
        else{

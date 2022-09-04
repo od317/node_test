@@ -119,7 +119,8 @@ router.get('/:id/edit',async(req,res)=>{
   
   con.query(`select* from books where title="${String(req.params.id)}";`,(err,ress,file)=>{
     con.query(`select * from authors;`,(err,ress2,file)=>{
-      res.render('books/edit',{book:ress[0],authors:ress2});
+      let covs=["g1.webp","g2.jpg","g3.jpg","g4.webp","g5.webp","g6.jpg","g7.jpg","g8.jpg","g9.jpg","g10.jpg","g11.jpg","g12.jpg","g13.jpg",];
+      res.render('books/edit',{book:ress[0],authors:ress2,covs:covs});
     })
   })
 })
